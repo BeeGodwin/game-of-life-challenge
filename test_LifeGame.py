@@ -16,10 +16,10 @@ class TestLifeGame(object):
     def test_bounds(self):
 
         game = LifeGame([])
-        assert game.bounds == (0, 0, 0, 0)
+        assert game.bounds() == (0, 0, 0, 0)
 
         game = LifeGame([(0, 0)])
-        assert game.bounds == (-1, -1, 3, 3)
+        assert game.bounds() == (-1, -1, 3, 3)
 
         game = LifeGame([(-1, -1), (1, 1)])
-        assert game.bounds == (-2, -2, 5, 5)
+        assert game.bounds() == (-2, -2, 5, 5)

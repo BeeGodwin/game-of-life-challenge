@@ -26,7 +26,20 @@ class LifeGame:
         growing.
 
         Returns the tuple (x, y, len, height)."""
-        pass
+        if len(self.liveCells) == 0:
+            return 0, 0, 0, 0
+
+        x_low, x_high, y_low, y_high = 0, 0, 0, 0
+        for x, y in self.liveCells:
+            x_high = max(x, x_high)
+            x_low = min (x, x_low)
+            y_high = max(y, y_high)
+            y_low = min(y, y_low)
+
+        width = x_high - x_low
+        height = y_high - y_low
+
+        return x_low - 1, y_low - 1, width + 3, height + 3
 
     def neighbours(self, cell):
         """Computes the neighbouring cells of the (x, y) tuple passed in. Returns the number of living cells in
