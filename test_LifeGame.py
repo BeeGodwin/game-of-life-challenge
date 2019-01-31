@@ -70,6 +70,18 @@ class TestLifeGame(object):
 
     def test_line_of_3(self):
         """Scenario 6: line of 3 cells goes from horizontal to vertical and back"""
-        pass
+
+        game = LifeGame([(1, 0), (0, 0), (-1, 0)])
+        game.iterate()
+        assert len(game.live_cells) == 3
+        assert (0, 1) in game.live_cells
+        assert (0, 0) in game.live_cells
+        assert (0, -1) in game.live_cells
+
+        game.iterate()
+        assert len(game.live_cells) == 3
+        assert (1, 0) in game.live_cells
+        assert (0, 0) in game.live_cells
+        assert (-1, 0) in game.live_cells
 
 
