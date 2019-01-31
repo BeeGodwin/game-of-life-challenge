@@ -38,7 +38,9 @@ class TestLifeGame(object):
 
     def test_iterate_overpop(self):
         """Scenario 2: Given a cell with more than three neighbours, after 1 iter, it dies."""
-        pass
+        game = LifeGame([(1, 0), (0, 1), (-1, 0), (0, -1)])
+        game.iterate()
+        assert not game.cell_at(0, 0)
 
     def test_iterate_survive(self):
         """Scenario 3: Given a cell with two or three neighbours, after 1 iter, it lives."""
