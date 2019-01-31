@@ -6,12 +6,12 @@ class TestLifeGame(object):
     def test_neighbours(self):
         """Test not in spec: helper function"""
         game = LifeGame([(0, 0)])
-        assert game.neighbours((0, 0)) == 0
-        assert game.neighbours((1, 0)) == 1
+        assert game.count_neighbours((0, 0)) == 0
+        assert game.count_neighbours((1, 0)) == 1
 
         game = LifeGame([(1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1)])
-        assert game.neighbours((0, 0)) == 8
-        assert game.neighbours((2, 0)) == 3
+        assert game.count_neighbours((0, 0)) == 8
+        assert game.count_neighbours((2, 0)) == 3
 
     def test_bounds(self):
         """Test not in spec: helper function"""
@@ -26,11 +26,15 @@ class TestLifeGame(object):
 
     def test_iterate_empty(self):
         """Scenario 0: Given an empty cell with no live neighbours, after 1 iter, it is still empty."""
-        pass
+        game = LifeGame([])
+        game.iterate()
+        assert not game.cell_at(0, 0)
 
     def test_iterate_underpop(self):
         """Scenario 1: Given a cell with one neighbour, after 1 iter, it dies."""
-        pass
+        game = LifeGame([(0, 0), (1, 0)])
+        game.iterate()
+        assert not game.cell_at(0, 0)
 
     def test_iterate_overpop(self):
         """Scenario 2: Given a cell with more than three neighbours, after 1 iter, it dies."""
