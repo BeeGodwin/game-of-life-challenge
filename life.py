@@ -21,6 +21,9 @@ class LifeGame:
         will be alive for the next iteration."""
         pass
 
+    def cell_at(self, x, y):
+        return (x, y) in self.liveCells
+
     def bounds(self):
         """Finds the bounds of the active area of the board. Pads by one in all directions to allow for the total area
         growing.
