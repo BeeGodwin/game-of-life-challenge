@@ -13,13 +13,27 @@ class LifeGame:
     has exactly three neighbours.
     """
     def __init__(self, cells):
-        """cells is a list of (x, y) tuples describing living cell locations."""
+        """cells is a collection of (x, y) tuples describing living cell locations."""
         self.liveCells = set(cells)
 
     def iterate(self):
-        """Loop through the whole board applying the Game of Life tests to each cell, and copying the results into the
-        buffer. Note that you still have to consider 'virtual' cells outside the scope of the current board as they
-        can still have three neighbours."""
+        """Apply the Game of Life tests to each cell in the active area of the board. Return the set of cells that
+        will be alive for the next iteration."""
         pass
+
+    def bounds(self):
+        """Finds the bounds of the active area of the board. Pads by one in all directions to allow for the total area
+        growing.
+
+        Returns the tuple (x, y, len, height)."""
+        pass
+
+    def neighbours(self, cell):
+        """Computes the neighbouring cells of the (x, y) tuple passed in. Returns the number of living cells in
+        its neighbourhood (the eight cells directly and diagonally adjacent.)"""
+        pass
+
+
+
 
 
