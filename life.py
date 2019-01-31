@@ -31,7 +31,15 @@ class LifeGame:
     def neighbours(self, cell):
         """Computes the neighbouring cells of the (x, y) tuple passed in. Returns the number of living cells in
         its neighbourhood (the eight cells directly and diagonally adjacent.)"""
-        pass
+        count = 0
+        x, y = cell
+        neighbours = {(i, j) for i in range(x - 1, x + 2) for j in range(y - 1, y + 2) if i != x or j != y}
+
+        for n in neighbours:
+            if n in self.liveCells:
+                count += 1
+
+        return count
 
 
 
