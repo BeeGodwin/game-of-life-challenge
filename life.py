@@ -40,7 +40,8 @@ class LifeGame:
         """Finds the bounds of the active area of the board. Pads by one in all directions to allow for the total area
         growing.
 
-        Returns the tuple (x, y, len, height)."""
+        Returns the tuple (x, y, width, height) where x and y are the origin, and width and height describe the
+        size."""
         if len(self.live_cells) == 0:
             return 0, 0, 0, 0
 
@@ -68,8 +69,3 @@ class LifeGame:
                 count += 1
 
         return count
-
-
-
-
-
