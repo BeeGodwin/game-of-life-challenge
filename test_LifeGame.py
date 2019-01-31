@@ -38,23 +38,35 @@ class TestLifeGame(object):
 
     def test_iterate_overpop(self):
         """Scenario 2: Given a cell with more than three neighbours, after 1 iter, it dies."""
-        game = LifeGame([(1, 0), (0, 1), (-1, 0), (0, -1)])
+
+        game = LifeGame([(0, 0), (1, 0), (0, 1), (-1, 0), (0, -1)])
         game.iterate()
         assert not game.cell_at(0, 0)
 
     def test_iterate_survive(self):
         """Scenario 3: Given a cell with two or three neighbours, after 1 iter, it lives."""
+
         game = LifeGame([(-1, 0), (0, 0), (1, 0)])
+        game.iterate()
+        assert game.cell_at(0, 0)
+
+        game = LifeGame([(-1, 0), (0, 0), (1, 0), (1, 1)])
         game.iterate()
         assert game.cell_at(0, 0)
 
     def test_iterate_create(self):
         """Scenario 4: Given an empty cell with three neighbours, after 1 iter, it will be live."""
-        pass
+
+        game = LifeGame([(1, 0), (0, 1), (-1, 0)])
+        game.iterate()
+        assert game.cell_at(0, 0)
 
     def test_empty_grid(self):
         """Scenario 5: empty grid"""
-        pass
+
+        game = LifeGame([])
+        game.iterate()
+        assert game.live_cells == set()
 
     def test_line_of_3(self):
         """Scenario 6: line of 3 cells goes from horizontal to vertical and back"""
