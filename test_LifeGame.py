@@ -44,7 +44,9 @@ class TestLifeGame(object):
 
     def test_iterate_survive(self):
         """Scenario 3: Given a cell with two or three neighbours, after 1 iter, it lives."""
-        pass
+        game = LifeGame([(-1, 0), (0, 0), (1, 0)])
+        game.iterate()
+        assert game.cell_at(0, 0)
 
     def test_iterate_create(self):
         """Scenario 4: Given an empty cell with three neighbours, after 1 iter, it will be live."""
