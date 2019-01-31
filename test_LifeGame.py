@@ -25,31 +25,31 @@ class TestLifeGame(object):
         assert game.bounds() == (-2, -2, 5, 5)
 
     def test_iterate_empty(self):
-        """Given an empty cell with no live neighbours, after 1 iter, it is still empty."""
+        """Scenario 0: Given an empty cell with no live neighbours, after 1 iter, it is still empty."""
         pass
 
     def test_iterate_underpop(self):
-        """Given a cell with one neighbour, after 1 iter, it dies."""
+        """Scenario 1: Given a cell with one neighbour, after 1 iter, it dies."""
         pass
 
     def test_iterate_overpop(self):
-        """Given a cell with more than three neighbours, after 1 iter, it dies."""
+        """Scenario 2: Given a cell with more than three neighbours, after 1 iter, it dies."""
         pass
 
     def test_iterate_survive(self):
-        """Given a cell with two or three neighbours, after 1 iter, it lives."""
+        """Scenario 3: Given a cell with two or three neighbours, after 1 iter, it lives."""
         pass
 
     def test_iterate_create(self):
-        """Given an empty cell with three neighbours, after 1 iter, it will be live."""
+        """Scenario 4: Given an empty cell with three neighbours, after 1 iter, it will be live."""
         pass
 
     def test_empty_grid(self):
-        """Scenario 5, empty grid"""
+        """Scenario 5: empty grid"""
         pass
 
     def test_line_of_3(self):
-        """Scenario 6- line of 3 cells goes from horizontal to vertical and back"""
+        """Scenario 6: line of 3 cells goes from horizontal to vertical and back"""
         pass
 
 
