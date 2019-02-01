@@ -19,6 +19,8 @@ class LifeGame:
     def iterate(self):
         """Apply the Game of Life tests to each cell in the active area of the board. Return the set of cells that
         will be alive for the next iteration."""
+        # TODO could be more efficient. Rather than the bounds approach, find the set of all cells with neighbours.
+        #  Should make it perform at closer to linear time.
         x_ori, y_ori, width, height = self.bounds()
 
         alive_next = set()
