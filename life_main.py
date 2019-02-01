@@ -5,15 +5,31 @@ from life import LifeGame
 
 def display_board(life_game):
     """Prints the current board state to the console."""
-    # TODO improve display to print nice grid output
-    print(life_game.live_cells)
+
+    x_origin, y_origin, width, height = -1, -1, 3, 3  # a 3x3 empty grid
+
+    if len(life_game.live_cells) > 0:
+        x_origin, y_origin, width, height = life_game.bounds()
+
+    horiz_line = "-" * (width * 2 + 1)
+
+    for j in range(height):
+        print(horiz_line)
+        row = "|"
+        for i in range(width):
+            if (i + x_origin, j + y_origin) in life_game.live_cells:
+                row += "0|"
+            else:
+                row += ".|"
+        print(row)
+    print(horiz_line)
 
 
 def main():
 
     print("Welcome to LifeGame")
 
-    live = eval(input("Please enter a comma-separated list of integer 2-tuples"))
+    live = eval("[" + input("Please enter a comma-separated list of integer 2-tuples: ") + "]")
 
     game = LifeGame(live)  # TODO unsafe! Check the input first.
 
