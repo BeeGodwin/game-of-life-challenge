@@ -1,16 +1,21 @@
 from life import LifeGame
 
+"""Basic terminal based front end to run a LifeGame instance."""
+
 
 def display_board(life_game):
+    """Prints the current board state to the console."""
+    # TODO improve display to print nice grid output
     print(life_game.live_cells)
 
 
 def main():
-    # get a list of tuples from the user
+
     print("Welcome to LifeGame")
+
     live = eval(input("Please enter a comma-separated list of integer 2-tuples"))
 
-    game = LifeGame(live)  # unsafe! Check the input first.
+    game = LifeGame(live)  # TODO unsafe! Check the input first.
 
     done = False
 
