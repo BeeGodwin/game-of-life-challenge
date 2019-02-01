@@ -1,37 +1,43 @@
 class LifeGame:
     """This class represents a Game of life board.
 
-    This board is an infinite Cartesian plane starting at 0,0.
+    This board is an infinite Cartesian plane starting at 0,0, with all points represented by integer tuples (x, y).
 
-    This class has a set, live_set,  of live cells as (x, y) tuples, and takes a list of (x, y) tuples in its
-    constructor as its intial list of living cells.
+    This class has a set, live_cells,  of live cells as (x, y) tuples, and takes a list of (x, y) tuples in its
+    constructor as its intial set of living cells.
 
-    Each time iterate is called, find the bounds of the area of living cells and pad by one.
-
-    For each cell in this plane, compute its 8 neighbouring (x, y) tuples and determine how many living
-    neighbours it has. Living cells survive with either 2 or 3 neighbours. Cells are created when an empty cell
-    has exactly three neighbours.
+    The iterate method computes the set of living cells next turn according to the rules of Life
+    and stores this new set in live_cells.
     """
+
     def __init__(self, cells):
         """cells is a collection of (x, y) tuples describing living cell locations."""
         self.live_cells = set(cells)
 
     def iterate(self):
-        """Apply the Game of Life tests to each cell in the active area of the board. Return the set of cells that
+        """Apply the Game of Life tests to each cell on the board that is either alive or
+        has neighbours (and therefore might be alive next turn.) Return the set of cells that
         will be alive for the next iteration."""
-        # TODO could be more efficient. Rather than the bounds approach, find the set of all cells with neighbours.
-        #  Should make it perform at closer to linear time.
-        x_ori, y_ori, width, height = self.bounds()
 
         alive_next = set()
 
-        for i in range(x_ori, x_ori + width):
-            for j in range(y_ori, y_ori + height):
-                num_neighbours = self.count_neighbours((i, j))
-                if (i, j) in self.live_cells and (num_neighbours == 2 or num_neighbours == 3):
-                    alive_next.add((i, j))
-                elif (i, j) not in self.live_cells and num_neighbours == 3:
-                    alive_next.add((i, j))
+        cells_to_check = set()
+
+        # find the set of all cells that are either alive (and therefore might die) or have any neighbours
+        # (and therefore might be alive next.)
+        for (x, y) in self.live_cells:
+            candidates_to_add = {(i, j) for i in range(x - 1, x + 2) for j in range(y - 1, y + 2)}
+            for cell in candidates_to_add:
+                cells_to_check.add(cell)
+
+        # Check all these cells against the rules of Life. If they're alive next turn add them to the
+        # alive_next list. If not, ignore them (if they're not included, they're considered dead.)
+        for cell in cells_to_check:
+            num_neighbours = self.count_neighbours(cell)
+            if cell in self.live_cells and (num_neighbours == 2 or num_neighbours == 3):
+                alive_next.add(cell)
+            elif cell not in self.live_cells and num_neighbours == 3:
+                alive_next.add(cell)
 
         self.live_cells = alive_next
 
