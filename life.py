@@ -47,7 +47,7 @@ class LifeGame:
         if len(self.live_cells) == 0:
             return 0, 0, 0, 0
 
-        x_low, x_high, y_low, y_high = 0, 0, 0, 0
+        x_low, x_high, y_low, y_high = 1000, -1000, 1000, -1000
         for (x, y) in self.live_cells:
             x_high = max(x, x_high)
             x_low = min (x, x_low)
