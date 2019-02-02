@@ -4,40 +4,37 @@ class LifeGame:
     This board is an infinite Cartesian plane starting at 0,0, with all points represented by integer tuples (x, y).
 
     This class has a set, live_cells,  of live cells as (x, y) tuples, and takes a list of (x, y) tuples in its
-    constructor as its intial set of living cells.
+    constructor as its initial set of living cells.
 
     The iterate method computes the set of living cells next turn according to the rules of Life
     and stores this new set in live_cells.
     """
 
+    MAX_BOARD_SIZE = 100  # a value much smaller than int max and much higher than the size of the intended game
+
     def __init__(self, cells):
-        """cells is a collection of (x, y) tuples describing living cell locations."""
+        """cells is a list of (x, y) tuples describing living cell locations."""
         self.live_cells = set(cells)
 
     def iterate(self):
         """Apply the Game of Life tests to each cell on the board that is either alive or
-        has neighbours (and therefore might be alive next turn.) Return the set of cells that
-        will be alive for the next iteration."""
-
-        alive_next = set()
-
-        cells_to_check = set()
+        has neighbours (and therefore might be alive next turn.) Store the set of cells that
+        will be alive for the next iteration in self.live_cells."""
 
         # find the set of all cells that are either alive (and therefore might die) or have any neighbours
-        # (and therefore might be alive next.)
+        # (and therefore might be alive next.) This is the set of all live cells and all their neighbours.
+        cells_to_check = set()
+
         for (x, y) in self.live_cells:
             candidates_to_add = {(i, j) for i in range(x - 1, x + 2) for j in range(y - 1, y + 2)}
             for cell in candidates_to_add:
                 cells_to_check.add(cell)
 
-        # Check all these cells against the rules of Life. If they're alive next turn add them to the
-        # alive_next list. If not, ignore them (if they're not included, they're considered dead.)
-        for cell in cells_to_check:
-            num_neighbours = self.count_neighbours(cell)
-            if cell in self.live_cells and (num_neighbours == 2 or num_neighbours == 3):
-                alive_next.add(cell)
-            elif cell not in self.live_cells and num_neighbours == 3:
-                alive_next.add(cell)
+        # filter to find cells alive next turn
+        alive_next = set(
+            filter(lambda c: c in self.live_cells and (3 >= self.count_neighbours(c) >= 2), cells_to_check))
+        alive_next = alive_next.union(
+            set(filter(lambda c: c not in self.live_cells and self.count_neighbours(c) == 3, cells_to_check)))
 
         self.live_cells = alive_next
 
@@ -53,7 +50,9 @@ class LifeGame:
         if len(self.live_cells) == 0:
             return 0, 0, 0, 0
 
-        x_low, x_high, y_low, y_high = 1000, -1000, 1000, -1000
+        max_b = LifeGame.MAX_BOARD_SIZE
+
+        x_low, x_high, y_low, y_high = max_b, -max_b, max_b, -max_b
         for (x, y) in self.live_cells:
             x_high = max(x, x_high)
             x_low = min (x, x_low)
