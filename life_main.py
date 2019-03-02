@@ -37,7 +37,7 @@ def main():
 
     while not good_input:
         try:
-            live = eval("[" + input("Please enter a comma-separated list of integer 2-tuples: ") + "]")
+            live = eval("[" + " {0} ".format(input("Please enter a comma-separated list of integer 2-tuples: ")) + "]")
             assert type(live) == list
 
             for item in live:
@@ -59,7 +59,12 @@ def main():
 
         display_board(game)
 
-        choice = input("Enter to iterate, q to quit")
+        choice = ''
+
+        try:
+            choice = input("Enter to iterate, q to quit")
+        except SyntaxError as e:
+            continue
 
         if len(choice) > 0 and choice.capitalize()[0] == "Q":
             done_iterating = True
