@@ -1,3 +1,4 @@
+import os
 from life import LifeGame
 
 """Simple terminal based front end to run a LifeGame instance."""
@@ -12,6 +13,7 @@ def display_board(life_game):
         x_origin, y_origin, width, height = life_game.bounds()
 
     horiz_line = "-" * (width * 2 + 1)
+
 
     for j in range(height):
         print(horiz_line)
